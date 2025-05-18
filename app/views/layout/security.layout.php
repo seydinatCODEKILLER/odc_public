@@ -15,7 +15,7 @@
     <title>Connexion</title>
 </head>
 
-<body class="h-screen flex justify-center items-center inset-0 bg-gradient-to-r from-red-50/50 to-white">
+<body class="h-screen flex justify-center items-center bg-[url(assets/images/connexion.png)] bg-center bg-cover">
     <?= $content ?>
     <script src="assets/javascript/notif.js"></script>
 </body>

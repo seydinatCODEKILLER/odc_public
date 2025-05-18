@@ -6,7 +6,7 @@
             <div class="flex items-center gap-2 text-md">
                 <img src="../assets/images/logo.png" alt="" class="h-7 object-cover">
                 <div class="flex flex-col">
-                    <h1 class="text-sm font-medium text-gray-900">Ecole 221</h1>
+                    <h1 class="text-xs font-medium text-gray-900">Ecole 221</h1>
                     <p class="text-sm text-red-500 font-medium">Future is now</p>
                 </div>
             </div>
@@ -16,7 +16,7 @@
         </div>
         <nav>
             <ul class="flex flex-col gap-1">
-                <li class="py-2 px-4 <?= current_route_is("/admin/dashboard") ? ' bg-red-50 rounded text-red-500' : 'hover:bg-gray-50' ?> ">
+                <li class="py-2 px-4 <?= current_route_is("/admin/dashboard") ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white rounded' : 'hover:bg-gray-50' ?> ">
                     <a
                         href="<?= ROOT_URL ?>admin/dashboard"
                         class="font-medium gap-3 flex items-center text-sm">
@@ -24,7 +24,7 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="py-2 px-4 <?= current_route_is("/admin/promotion") ? 'bg-red-50 rounded text-red-500' : 'hover:bg-gray-50' ?> ">
+                <li class="py-2 px-4 <?= current_route_is("/admin/promotion") ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white rounded' : 'hover:bg-gray-50' ?> ">
                     <a
                         href="<?= ROOT_URL ?>admin/promotion"
                         class="font-medium gap-3 flex items-center text-sm">
@@ -36,7 +36,7 @@
         </nav>
     </div>
     <div class="">
-        <a href="<?= ROOT_URL ?>logout" class="btn bg-red-50 text-red-500 rounded w-full">
+        <a href="<?= ROOT_URL ?>logout" class="btn rounded w-full">
             <i class="ri-logout-box-r-line font-medium"></i>
             <span>Déconnexion</span>
         </a>

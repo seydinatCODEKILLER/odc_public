@@ -7,8 +7,8 @@ return [
     'logout' => 'securityController@logout',
 
     // Redirections pour les rôles
-    'admin/dashboard' => 'adminController@dashboard',
-    'admin/promotion' => 'adminController@promotion',
+    'admin/dashboard' => 'controller@dashboardAdmin',
+    'admin/promotion' => 'promotionController@promotion',
 
     'apprenant/dashboard' => 'apprenantController@dashboard',
     'vigile/dashboard' => 'vigileController@dashboard',

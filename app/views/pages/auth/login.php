@@ -1,6 +1,6 @@
 <div class="max-w-3xl">
     <div class="w-full flex flex-col justify-center gap-5 relative bg-white shadow-lg rounded p-5">
-        <div class="fixed top-5 right-5 space-y-4 transition transform duration-300 opacity-0 translate-y-2" id="alerter">
+        <div class="fixed bottom-5 left-5 space-y-4 transition transform duration-300 opacity-0 translate-y-2" id="alerter">
             <?php if (getFieldError('credentials')): ?>
                 <div role="alert" class="alert alert-error text-white">
                     <i class="ri-error-warning-line"></i>
