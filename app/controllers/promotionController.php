@@ -12,12 +12,13 @@ function promotion()
 {
     isUserLoggedIn();
     $display_mode = $_GET['mode'] ?? 'grid';
+    $currentPage = $_GET['p'] ?? 1;
     $stats = [
         'nombre_promotions' => getNombrePromotions(),
         'nombre_promotions_active' => getNombrePromotionsActives(),
         'nombre_referentiel' => getNombreReferentiels(),
         'nombre_apprenant' => getNombreApprenants(),
-        'promotions' => getAllPromotionsWithReferentiels()
+        'promotions' => getAllPromotionsWithReferentiels([], $currentPage)
     ];
     return render_view('admin/promotion', "base.layout", [
         'title' => 'Promotions',

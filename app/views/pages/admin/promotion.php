@@ -22,7 +22,7 @@
             <div class="flex items-center justify-between">
                 <form action="" class="w-[700px]">
                     <div class="relative">
-                        <input type="text" class="border bg-gray-50 rounded py-2 px-8 w-full focus:outline-none focus:ring focus:ring-red-500" placeholder="Rechercher...">
+                        <input type="text" class="border bg-gray-50 rounded py-2 px-8 w-full" placeholder="Rechercher...">
                         <button type="submit" class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">
                             <i class="ri-search-line"></i>
                         </button>
@@ -50,9 +50,12 @@
             <?php if ($display_mode === 'grid'): ?>
                 <!-- Mode Grille -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <?php foreach ($stats["promotions"] as $promotion): ?>
+                    <?php foreach ($stats["promotions"]["data"] as $promotion): ?>
                         <?php display_grid_item($promotion); ?>
                     <?php endforeach ?>
+                    <div class="col-span-full">
+                        <?= renderPagination($stats["promotions"]["pagination"]) ?>
+                    </div>
                 </div>
             <?php else: ?>
                 <!-- Mode Liste -->
@@ -70,11 +73,12 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <?php foreach ($stats["promotions"] as $promotion): ?>
+                            <?php foreach ($stats["promotions"]["data"] as $promotion): ?>
                                 <?php display_list_row($promotion); ?>
                             <?php endforeach ?>
                         </tbody>
                     </table>
+                    <?= renderPagination($stats["promotions"]["pagination"]) ?>
                 </div>
             <?php endif ?>
         </div>
