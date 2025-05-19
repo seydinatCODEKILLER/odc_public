@@ -14,7 +14,7 @@ function getNombrePromotionsActives(): int
     return $result ? (int) $result['total'] : 0;
 }
 
-function getAllPromotionsWithReferentiels(array $filters = [], int $page = 1, int $perPage = 2): array|false
+function getAllPromotionsWithReferentiels(array $filters = [], int $page = 1, int $perPage = 3): array|false
 {
     $sql = "
         SELECT 
@@ -51,4 +51,70 @@ function getAllPromotionsWithReferentiels(array $filters = [], int $page = 1, in
     $sql .= " GROUP BY p.id ORDER BY p.date_debut DESC";
 
     return paginateQuery($sql, $params, $page, $perPage);
+}
+
+function promotionExistsByName(string $name, ?int $excludeId = null): bool
+{
+    $sql = "SELECT COUNT(*) FROM promotion WHERE nom = ?";
+    $params = [trim($name)];
+
+    if ($excludeId !== null) {
+        $sql .= " AND id != ?";
+        $params[] = $excludeId;
+    }
+
+    $result = fetchResult($sql, $params, false);
+    return $result['count'] > 0;
+}
+
+function createPromotion(array $promotionData): int|false
+{
+    $sql = "INSERT INTO promotion 
+            (nom, date_debut, date_fin, image, statut, nombre_apprenants) 
+            VALUES (?, ?, ?, ?, 'inactive', ?) 
+            RETURNING id";
+
+    $params = [
+        $promotionData['nom'],
+        $promotionData['date_debut'],
+        $promotionData['date_fin'],
+        $promotionData['image'] ?? null,
+        $promotionData['nombre_apprenants']
+    ];
+
+    $result = executeQuery($sql, $params, true);
+
+    return is_numeric($result) ? (int)$result : false;
+}
+
+function addReferentielToPromotion(int $promotionId, int $referentielId): bool
+{
+    $checkSql = "SELECT COUNT(*) FROM promotion_referentiel WHERE promotion_id = ? AND referentiel_id = ?";
+    $exists = fetchResult($checkSql, [$promotionId, $referentielId], false)['count'] > 0;
+
+    if ($exists) {
+        return true;
+    }
+
+    $insertSql = "INSERT INTO promotion_referentiel (promotion_id, referentiel_id) VALUES (?, ?)";
+    return (bool) executeQuery($insertSql, [$promotionId, $referentielId]);
+}
+
+function updatePromotionReferentiels(int $promotionId, array $referentielIds): bool
+{
+
+    try {
+        $deleteSql = "DELETE FROM promotion_referentiel WHERE promotion_id = ?";
+        executeQuery($deleteSql, [$promotionId]);
+
+        foreach ($referentielIds as $refId) {
+            if (!addReferentielToPromotion($promotionId, $refId)) {
+                throw new Exception("Erreur lors de l'ajout du référentiel $refId");
+            }
+        }
+        return true;
+    } catch (Exception $e) {
+        error_log("Erreur updatePromotionReferentiels: " . $e->getMessage());
+        return false;
+    }
 }

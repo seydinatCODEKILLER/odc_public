@@ -193,3 +193,15 @@ function parsePostgresArray(string $pgArray): array
 
     return $items;
 }
+
+function include_component($component, $data = [])
+{
+    extract($data);
+    include ROOT_PATH . "/views/components/{$component}.php";
+}
+
+function validateDate(string $date, string $format = 'Y-m-d'): bool
+{
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) === $date;
+}

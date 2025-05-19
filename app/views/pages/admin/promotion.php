@@ -1,14 +1,31 @@
 <div class="px-3">
     <div class="bg-white mt-4 shadow-sm max-w-7xl p-4">
+        <div class="fixed bottom-5 left-5 space-y-4 transition transform duration-300 opacity-0 translate-y-2" id="alerter">
+            <?php if ($success): ?>
+                <div role="alert" class="alert alert-success text-white">
+                    <i class="ri-error-warning-line"></i>
+                    <span><?= $success ?></span>
+                </div>
+            <?php endif; ?>
+        </div>
         <div class="flex items-center justify-between">
             <div class="flex flex-col">
                 <h1 class="text-red-500 font-medium text-xl">Promotions</h1>
                 <span class="text-gray-700">Gerer les promotions de l'ecole</span>
             </div>
-            <button class="text-white px-3 py-2 rounded bg-gradient-to-r from-red-500 to-pink-500">
+            <button onclick="addPromotionModal.showModal()" class="text-white px-3 py-2 rounded bg-gradient-to-r from-red-500 to-pink-500">
                 <i class="ri-add-line"></i>
                 <span>Ajouter une promotion</span>
             </button>
+            <?php
+            include_component('modals/promotion.modal', [
+                'referentiels' => $referentiels,
+                'errors' => $errors ?? [],
+                'oldValues' => $_POST,
+                'formAction' => 'admin/promotion',
+                'promotionToEdit' => $promotionToEdit ?? null
+            ]);
+            ?>
         </div>
         <div class="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             <?=
@@ -50,11 +67,11 @@
             <?php if ($display_mode === 'grid'): ?>
                 <!-- Mode Grille -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <?php foreach ($stats["promotions"]["data"] as $promotion): ?>
+                    <?php foreach ($data["promotions"]["data"] as $promotion): ?>
                         <?php display_grid_item($promotion); ?>
                     <?php endforeach ?>
                     <div class="col-span-full">
-                        <?= renderPagination($stats["promotions"]["pagination"]) ?>
+                        <?= renderPagination($data["promotions"]["pagination"]) ?>
                     </div>
                 </div>
             <?php else: ?>
@@ -73,12 +90,12 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <?php foreach ($stats["promotions"]["data"] as $promotion): ?>
+                            <?php foreach ($data["promotions"]["data"] as $promotion): ?>
                                 <?php display_list_row($promotion); ?>
                             <?php endforeach ?>
                         </tbody>
                     </table>
-                    <?= renderPagination($stats["promotions"]["pagination"]) ?>
+                    <?= renderPagination($data["promotions"]["pagination"]) ?>
                 </div>
             <?php endif ?>
         </div>
