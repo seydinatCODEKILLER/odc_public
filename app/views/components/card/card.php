@@ -41,9 +41,7 @@ function display_stat_card($value, $label, $icon, $bg_color = 'error')
     </style>
     HTML;
 }
-/**
- * Affiche un item de promotion en mode grille
- */
+
 function display_grid_item($promotion)
 {
     $status_color = colorState($promotion["statut"]);

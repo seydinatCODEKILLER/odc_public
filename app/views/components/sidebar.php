@@ -32,6 +32,14 @@
                         <span>Promotions</span>
                     </a>
                 </li>
+                <li class="py-2 px-4 <?= current_route_is("/admin/referentiel") ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white rounded' : 'hover:bg-gray-50' ?> ">
+                    <a
+                        href="<?= ROOT_URL ?>admin/referentiel"
+                        class="font-medium gap-3 flex items-center text-sm">
+                        <i class="ri-presentation-line text-lg"></i>
+                        <span>Referentiels</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>

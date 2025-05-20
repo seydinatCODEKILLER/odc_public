@@ -9,6 +9,7 @@ return [
     // Redirections pour les rôles
     'admin/dashboard' => 'controller@dashboardAdmin',
     'admin/promotion' => 'promotionController@promotion',
+    'admin/referentiel' => 'referentielController@referentiel',
 
     'apprenant/dashboard' => 'apprenantController@dashboard',
     'vigile/dashboard' => 'vigileController@dashboard',
