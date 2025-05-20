@@ -23,14 +23,13 @@ function getAllReferentiels(): array
 function getAllReferentielsPaginated(array $filters = [], int $page = 1, int $perPage = 3): array|false
 {
     $sql = "SELECT id, nom, description,image,capacite
-            FROM referentiel 
-            WHERE statut = 'active'";
+            FROM referentiel";
 
     $where = [];
     $params = [];
 
     if (!empty($filters['search'])) {
-        $where[] = "referentiel.nom ILIKE ?";
+        $where[] = "referentiel.nom LIKE ?";
         $params[] = '%' . $filters['search'] . '%';
     }
 

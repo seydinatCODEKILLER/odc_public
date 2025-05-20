@@ -1,4 +1,4 @@
-<div class="px-3">
+<div class="px-3 mt-14">
     <div class="mt-4 max-w-7xl p-4">
         <div class="fixed bottom-5 left-5 space-y-4 transition transform duration-300 opacity-0 translate-y-2" id="alerter">
             <?php if ($success): ?>
@@ -28,14 +28,17 @@
             ?>
         </div>
         <div class="mt-10">
-            <form action="" class="w-full flex items-center gap-2">
+            <form action="/admin/referentiel" class="w-full flex items-center gap-2">
                 <div class="relative">
-                    <input type="text" class="border bg-white rounded py-2 px-8 w-96" placeholder="Rechercher...">
+                    <input name="search" type="text" class="border bg-white rounded py-2 px-8 w-96" placeholder="Rechercher...">
                     <span class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">
                         <i class="ri-search-line"></i>
                     </span>
                 </div>
                 <button type="submit" class="btn btn-error text-white">Rechercher</button>
+                <?php if (isset($_GET["search"])): ?>
+                    <a href="/admin/referentiel" class="btn btn-outline"><i class="ri-refresh-line"></i></a>
+                <?php endif; ?>
             </form>
         </div>
         <div class="mt-10">

@@ -1,13 +1,13 @@
 <div
     id="sidebar"
-    class="flex flex-col justify-between p-3 fixed left-0 shadow-md h-full bg-white text-gray-900 w-64 lg:w-52 md:flex transform transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0 z-50">
+    class="flex flex-col justify-between p-3 fixed left-0 top-0 shadow-md h-full bg-white text-gray-900 w-64 lg:w-52 md:flex transform transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0 z-50">
     <div class="flex flex-col gap-6">
         <div class="flex justify-between">
             <div class="flex items-center gap-2 text-md">
                 <img src="../assets/images/logo.png" alt="" class="h-7 object-cover">
                 <div class="flex flex-col">
                     <h1 class="text-xs font-medium text-gray-900">Ecole 221</h1>
-                    <p class="text-sm text-red-500 font-medium">Future is now</p>
+                    <p class="text-sm text-red-500 font-bold">Future is now</p>
                 </div>
             </div>
             <div class="lg:hidden" id="sidebar-close">
