@@ -1,4 +1,4 @@
-<div class="px-3 mt-12">
+<div class="px-3 mt-16">
     <div class="bg-white mt-4 shadow-sm max-w-7xl p-4">
         <div class="fixed bottom-5 left-5 space-y-4 transition transform duration-300 opacity-0 translate-y-2" id="alerter">
             <?php if ($success): ?>
@@ -37,19 +37,22 @@
         </div>
         <div class="mt-10">
             <div class="flex items-center justify-between">
-                <form action="" class="w-[700px]">
+                <form action="/admin/promotion" class="w-full flex items-center">
                     <div class="relative">
-                        <input type="text" class="border bg-gray-50 rounded py-2 px-8 w-full" placeholder="Rechercher...">
-                        <button type="submit" class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">
+                        <input type="text" name="search" class="border bg-gray-50 rounded py-2 px-8 w-[500px]" placeholder="Rechercher...">
+                        <span class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">
                             <i class="ri-search-line"></i>
-                        </button>
+                        </span>
                     </div>
+                    <select class="select border border-1" name="statut">
+                        <option value="">Tous</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                    <button type="submit" class="btn btn-error text-white">
+                        <i class="ri-search-line"></i> Filtrez
+                    </button>
                 </form>
-                <select class="select border border-1">
-                    <option>Tous</option>
-                    <option>Go</option>
-                    <option>Rust</option>
-                </select>
                 <div class="flex items-center">
                     <!-- Boutons de bascule -->
                     <a href="?mode=grid" class="btn <?= $display_mode === 'grid' ? 'btn-error text-white' : 'border border-gray-100 rounded text-gray-700' ?>">
