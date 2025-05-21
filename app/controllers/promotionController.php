@@ -12,12 +12,17 @@ require_once ROOT_PATH . "/views/components/card/card.php";
 function promotion()
 {
     isUserLoggedIn();
+    $filtered = [
+        'search' => $_GET["search"] ?? "",
+        'statut' => $_GET['statut'] ?? ""
+    ];
 
     $viewData = [
         'title' => 'Promotions',
         'stats' => getPromotionStats(),
-        'promotions' => getAllPromotionsWithReferentiels([], $_GET['p'] ?? 1),
+        'promotions' => getAllPromotionsWithReferentiels($filtered, $_GET['p'] ?? 1),
         'referentiels' => getAllReferentiels(),
+        'filtered' => $filtered,
         'display_mode' => $_GET['mode'] ?? 'grid'
     ];
 

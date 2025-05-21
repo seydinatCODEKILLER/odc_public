@@ -37,21 +37,28 @@
         </div>
         <div class="mt-10">
             <div class="flex items-center justify-between">
-                <form action="/admin/promotion" class="w-full flex items-center">
-                    <div class="relative">
-                        <input type="text" name="search" class="border bg-gray-50 rounded py-2 px-8 w-[500px]" placeholder="Rechercher...">
-                        <span class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">
-                            <i class="ri-search-line"></i>
-                        </span>
+                <form action="/admin/promotion" class="w-full flex items-center gap-3">
+                    <div class="flex items-center">
+                        <div class="relative">
+                            <input type="text" name="search" class="border bg-gray-50 rounded py-2 px-8 w-[500px]" placeholder="Rechercher...">
+                            <span class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">
+                                <i class="ri-search-line"></i>
+                            </span>
+                        </div>
+                        <select class="select border bg-gray-50" name="statut">
+                            <option value="">Tous</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
                     </div>
-                    <select class="select border border-1" name="statut">
-                        <option value="">Tous</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                    <button type="submit" class="btn btn-error text-white">
-                        <i class="ri-search-line"></i> Filtrez
-                    </button>
+                    <div class="flex items-center">
+                        <button type="submit" class="btn btn-error text-white">
+                            <i class="ri-search-line"></i> Filtrez
+                        </button>
+                        <?php if (!empty($filtered["search"]) || !empty($filtered["statut"])): ?>
+                            <a href="/admin/promotion" class="btn btn-outline"><i class="ri-refresh-line"></i></a>
+                        <?php endif; ?>
+                    </div>
                 </form>
                 <div class="flex items-center">
                     <!-- Boutons de bascule -->
