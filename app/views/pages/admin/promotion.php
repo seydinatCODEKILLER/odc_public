@@ -1,5 +1,5 @@
 <div class="px-3 mt-16">
-    <div class="bg-white mt-4 shadow-sm max-w-7xl p-4">
+    <div class="bg-white mt-4 shadow-sm w-full lg:max-w-7xl p-4">
         <div class="fixed bottom-5 left-5 space-y-4 transition transform duration-300 opacity-0 translate-y-2" id="alerter">
             <?php if ($success): ?>
                 <div role="alert" class="alert alert-success text-white">
@@ -9,7 +9,7 @@
             <?php endif; ?>
         </div>
         <div class="flex items-center justify-between">
-            <div class="flex flex-col">
+            <div class="hidden md:flex flex-col">
                 <h1 class="text-red-500 font-medium text-xl">Promotions</h1>
                 <span class="text-gray-700">Gerer les promotions de l'ecole</span>
             </div>
@@ -37,10 +37,10 @@
         </div>
         <div class="mt-10">
             <div class="flex items-center justify-between">
-                <form action="/admin/promotion" class="w-full flex items-center gap-3">
+                <form action="/admin/promotion" class="w-full flex items-center flex-col md:flex-row gap-3">
                     <div class="flex items-center">
                         <div class="relative">
-                            <input type="text" name="search" class="border bg-gray-50 rounded py-2 px-8 w-[500px]" placeholder="Rechercher...">
+                            <input type="text" name="search" class="border bg-gray-50 rounded py-2 px-8 lg:w-[500px]" placeholder="Rechercher...">
                             <span class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">
                                 <i class="ri-search-line"></i>
                             </span>
@@ -60,7 +60,7 @@
                         <?php endif; ?>
                     </div>
                 </form>
-                <div class="flex items-center">
+                <div class=" items-center hidden lg:flex">
                     <!-- Boutons de bascule -->
                     <a href="?mode=grid" class="btn <?= $display_mode === 'grid' ? 'btn-error text-white' : 'border border-gray-100 rounded text-gray-700' ?>">
                         <i class="ri-dashboard-line"></i>

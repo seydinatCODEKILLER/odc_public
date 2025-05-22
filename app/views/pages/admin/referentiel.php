@@ -1,5 +1,5 @@
 <div class="px-3 mt-14">
-    <div class="mt-4 max-w-7xl p-4">
+    <div class="mt-4 max-w-7xl md:p-4">
         <div class="fixed bottom-5 left-5 space-y-4 transition transform duration-300 opacity-0 translate-y-2" id="alerter">
             <?php if ($success): ?>
                 <div role="alert" class="alert alert-success text-white">
@@ -9,7 +9,7 @@
             <?php endif; ?>
         </div>
         <div class="flex items-center justify-between">
-            <div class="flex flex-col">
+            <div class=" flex-col hidden md:flex">
                 <h1 class="text-red-500 font-medium text-xl">Toutes les referentiels</h1>
                 <span class="text-gray-700">Liste complete des referentiels de la formation</span>
             </div>
@@ -28,9 +28,9 @@
             ?>
         </div>
         <div class="mt-10">
-            <form action="/admin/referentiel" class="w-full flex items-center gap-2">
+            <form action="/admin/referentiel" class="w-full flex flex-col md:flex-row items-center gap-2">
                 <div class="relative">
-                    <input name="search" type="text" class="border bg-white rounded py-2 px-8 w-96" placeholder="Rechercher...">
+                    <input name="search" type="text" class="border bg-white rounded py-2 px-8 w-64 md:w-96" placeholder="Rechercher...">
                     <span class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">
                         <i class="ri-search-line"></i>
                     </span>
