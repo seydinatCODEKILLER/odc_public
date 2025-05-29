@@ -35,33 +35,44 @@ function logSqlError(PDOException $e, string $sql): void
     die("Erreur SQL: " . $e->getMessage() . "\nRequête: " . $sql);
 }
 
-function executeQuery(string $sql, array $params = [], bool $returnLastInsertId = false): PDOStatement|int|false
+function executeQuery(string $sql, array $params = [], bool $returnLastInsertId = false): bool|int
 {
     try {
         $pdo = connectDB();
         $stmt = prepareStatement($pdo, $sql);
         bindParams($stmt, $params);
-        $stmt->execute();
+        $success = $stmt->execute();
 
-        if ($returnLastInsertId) {
+        if ($returnLastInsertId && $success) {
             return $pdo->lastInsertId();
         }
 
-        return $stmt;
+        return $success;
     } catch (PDOException $e) {
         logSqlError($e, $sql);
         return false;
     }
 }
 
-function fetchResult(string $sql, array $params = [], bool $all = true): array | false
+function fetchResult(string $sql, array $params = [], bool $all = true): array|false
 {
-    $stmt = executeQuery($sql, $params);
-    if ($stmt) {
-        if ($all) {
-            return $stmt->fetchAll();
+    try {
+        $pdo = connectDB();
+        $stmt = prepareStatement($pdo, $sql);
+        bindParams($stmt, $params);
+
+        if (!$stmt->execute()) {
+            return false;
         }
-        return $stmt->fetch();
+
+        if ($all) {
+            $result = $stmt->fetchAll();
+            return $result ?: [];
+        }
+
+        return $stmt->fetch() ?: false;
+    } catch (PDOException $e) {
+        logSqlError($e, $sql);
+        return false;
     }
-    return false;
 }

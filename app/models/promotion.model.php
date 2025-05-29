@@ -118,3 +118,35 @@ function updatePromotionReferentiels(int $promotionId, array $referentielIds): b
         return false;
     }
 }
+
+function desactivateAllPromotions(): bool
+{
+    $sql = "UPDATE promotion SET statut = 'inactive' WHERE statut = 'active'";
+    return executeQuery($sql);
+}
+
+function setPromotionStatus(int $promotionId, string $status): bool
+{
+    $allowedStatuses = ['active', 'inactive'];
+    if (!in_array($status, $allowedStatuses)) {
+        return false;
+    }
+
+    $sql = "UPDATE promotion SET statut = ? WHERE id = ?";
+
+    return executeQuery(
+        $sql,
+        [$status, $promotionId]
+    );
+}
+
+function getPromotionStatus(int $promotionId): ?string
+{
+    $result = fetchResult(
+        "SELECT statut FROM promotion WHERE id = ?",
+        [$promotionId],
+        false
+    );
+
+    return $result['statut'] ?? null;
+}

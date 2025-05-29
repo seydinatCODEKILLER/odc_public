@@ -20,7 +20,6 @@
         <?php require_once ROOT_PATH . "/views/components/header.php"; ?>
         <?= $content ?>
     </div>
-    <script src="assets/javascript/notif.js"></script>
+    <script src="<?= ROOT_URL ?>assets/javascript/notif.js"></script>
+    <script src="<?= ROOT_URL ?>assets/javascript/confirmation.js"></script>
 </body>
-
-</html>

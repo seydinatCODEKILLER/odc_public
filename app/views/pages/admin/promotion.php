@@ -1,6 +1,6 @@
 <div class="px-3 mt-16">
-    <div class="bg-white mt-4 shadow-sm w-full lg:max-w-7xl p-4">
-        <div class="fixed bottom-5 left-5 space-y-4 transition transform duration-300 opacity-0 translate-y-2" id="alerter">
+    <div class="mt-4 w-full lg:max-w-7xl p-4">
+        <div class="fixed top-5 right-5 space-y-4 transition transform duration-300 opacity-0 translate-y-2 z-50" id="alerter">
             <?php if ($success): ?>
                 <div role="alert" class="alert alert-success text-white">
                     <i class="ri-error-warning-line"></i>
@@ -8,7 +8,7 @@
                 </div>
             <?php endif; ?>
         </div>
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between bg-white p-3 shdow-lg">
             <div class="hidden md:flex flex-col">
                 <h1 class="text-red-500 font-medium text-xl">Promotions</h1>
                 <span class="text-gray-700">Gerer les promotions de l'ecole</span>
@@ -40,12 +40,12 @@
                 <form action="/admin/promotion" class="w-full flex items-center flex-col md:flex-row gap-3">
                     <div class="flex items-center">
                         <div class="relative">
-                            <input type="text" name="search" class="border bg-gray-50 rounded py-2 px-8 lg:w-[500px]" placeholder="Rechercher...">
+                            <input type="text" name="search" class="border rounded py-2 px-8 lg:w-[500px] bg-white" placeholder="Rechercher...">
                             <span class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">
                                 <i class="ri-search-line"></i>
                             </span>
                         </div>
-                        <select class="select border bg-gray-50" name="statut">
+                        <select class="select border-0 bg-white" name="statut">
                             <option value="">Tous</option>
                             <option value="active">Active</option>
                             <option value="inactive">Inactive</option>
@@ -80,9 +80,6 @@
                     <?php foreach ($data["promotions"]["data"] as $promotion): ?>
                         <?php display_grid_item($promotion); ?>
                     <?php endforeach ?>
-                    <div class="col-span-full">
-                        <?= renderPagination($data["promotions"]["pagination"]) ?>
-                    </div>
                 </div>
             <?php else: ?>
                 <!-- Mode Liste -->
@@ -105,9 +102,14 @@
                             <?php endforeach ?>
                         </tbody>
                     </table>
-                    <?= renderPagination($data["promotions"]["pagination"]) ?>
                 </div>
             <?php endif ?>
+            <div class="mt-6">
+                <?= renderPagination($data["promotions"]["pagination"]) ?>
+            </div>
+        </div>
+        <div>
+            <?= confirmStatusModal() ?>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<div class="flex justify-between items-center px-4 py-3 bg-white rounded shadow-sm w-full lg:fixed lg:top-0 lg:z-50">
+<div class="flex justify-between items-center px-4 py-3 bg-white rounded shadow-sm w-full lg:fixed lg:top-0 lg:z-20">
     <div class="hidden lg:block">
         <form action="">
             <div class="relative">

@@ -205,3 +205,11 @@ function validateDate(string $date, string $format = 'Y-m-d'): bool
     $d = DateTime::createFromFormat($format, $date);
     return $d && $d->format($format) === $date;
 }
+
+function handleOperationResult(bool $success, string $targetStatus): void
+{
+    $action = $targetStatus === 'active' ? 'activée' : 'désactivée';
+    $message = $success ? "Promotion $action avec succès" : "Erreur lors de l'$action";
+
+    $success ? setSuccess($message) : setFieldError('general', $message);
+}

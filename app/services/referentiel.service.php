@@ -13,7 +13,6 @@ function addReferentielService(array $postData, array $fileData): array
         'capacite' => $postData['capacite'] ?? 0,
     ];
 
-
     // 2. Valider les données
     if (!validateReferentielsData($referentielData, $fileData)) {
         return [
@@ -41,6 +40,9 @@ function addReferentielService(array $postData, array $fileData): array
     try {
         // 5. Créer la promotion
         $refId = createReferentiel($referentielData);
+        if (!$refId) {
+            throw new Exception("Erreur lors de la création de la promotion");
+        }
 
         return [
             'success' => true,

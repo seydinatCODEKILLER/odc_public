@@ -43,8 +43,11 @@ function handle_request()
  */
 function create_route_pattern($route)
 {
-    // Convertit les {param} en groupes regex nommés
-    $pattern = preg_replace('/\{([a-z]+)\}/', '(?P<$1>[^\/]+)', $route);
+    // Version avec typage optionnel {id:int}
+    $pattern = preg_replace_callback('/\{([a-z]+)(:int)?\}/', function ($matches) {
+        return isset($matches[2]) ? '(\d+)' : '([^\/]+)';
+    }, $route);
+
     return '#^' . $pattern . '$#i';
 }
 
@@ -54,7 +57,6 @@ function create_route_pattern($route)
 function call_controller($controller, $action, $params = [])
 {
     $controllerFile = ROOT_PATH . "/controllers/{$controller}.php";
-    // dumpDie($controllerFile);
 
     // Vérification du contrôleur
     if (!file_exists($controllerFile)) {

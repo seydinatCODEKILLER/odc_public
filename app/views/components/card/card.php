@@ -44,6 +44,7 @@ function display_stat_card($value, $label, $icon, $bg_color = 'error')
 
 function display_grid_item($promotion)
 {
+    $id = $promotion["promotion_id"];
     $status_color = colorState($promotion["statut"]);
     $btn_color = colorBtnState($promotion["statut"]);
     $date_debut = format_date($promotion["date_debut"]);
@@ -54,13 +55,14 @@ function display_grid_item($promotion)
     $nb_apprenants = intval($promotion["nombre_apprenants"]);
 
     echo <<<HTML
-    <div class="p-3 rounded shadow-md">
+    <div class="p-3 rounded shadow-md bg-white hover:shadow-lg transition-all duration-300">
         <!-- Statut + Bouton -->
         <div class="flex justify-end items-center gap-3">
             <span class="badge badge-soft badge-$status_color font-medium text-md">$statut</span>
-            <a href="#" class="btn btn-soft btn-$btn_color w-10 h-10 rounded-full flex justify-center items-center">
+            <button id="btnstate" onclick="confirmToggleStatus($id, '$statut')" 
+                    class="btn btn-soft btn-$btn_color w-10 h-10 rounded-full flex justify-center items-center">
                 <i class="ri-shut-down-line"></i>
-            </a>
+            </button>
         </div>
 
         <!-- Image + Nom + Dates -->
@@ -88,6 +90,7 @@ function display_grid_item($promotion)
             </a>
         </div>
     </div>
+
     HTML;
 }
 
