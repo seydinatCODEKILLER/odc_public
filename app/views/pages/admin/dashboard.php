@@ -1,9 +1,9 @@
 <div class="px-3 mt-12">
     <div class="fixed bottom-5 left-5 space-y-4 transition transform duration-300 opacity-0 translate-y-2" id="alerter">
-        <?php if (getFieldError('credentials')): ?>
-            <div role="alert" class="alert alert-error text-white">
+        <?php if ($success): ?>
+            <div role="alert" class="alert alert-success text-white">
                 <i class="ri-error-warning-line"></i>
-                <span><?= getFieldError('credentials') ?></span>
+                <span><?= $success ?></span>
             </div>
         <?php endif; ?>
     </div>
