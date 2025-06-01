@@ -20,7 +20,7 @@ function promotion()
     ];
 
     $viewData = [
-        'title' => 'Promotions',
+        'title' => 'Admin | Promotions',
         'stats' => getPromotionStats(),
         'promotions' => getAllPromotionsWithReferentiels($filtered, $_GET['p'] ?? 1),
         'referentiels' => getAllReferentiels(),

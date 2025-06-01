@@ -7,7 +7,7 @@ function dashboardAdmin()
 {
     isUserLoggedIn();
     return render_view('admin/dashboard', "base.layout", [
-        'title' => 'Tableau de bord',
+        'title' => 'Admin | Dashboard',
         'success' => getSuccess(),
     ]);
 }

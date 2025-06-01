@@ -11,7 +11,7 @@ function referentiel()
     $filtered = ['search' => $_GET["search"] ?? ""];
 
     $baseViewData = [
-        'title' => 'Referentiels',
+        'title' => 'Admin | Referentiels',
         'referentiels' => getAllReferentielsPaginated($filtered, $_GET['p'] ?? 1),
         'sessions' => getAllSessions(),
         'success' => getSuccess()
