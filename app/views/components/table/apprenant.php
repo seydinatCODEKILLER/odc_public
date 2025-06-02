@@ -23,7 +23,7 @@ function display_list_row_apprenant($apprenant)
         <td class="px-6 py-4 whitespace-nowrap">$adresse</td>
         <td class="px-6 py-4 whitespace-nowrap">$telephone</td>
         <td class="px-6 py-4 whitespace-nowrap">
-            <span class="badge badge-info">$referentiel</span>
+            <span class="badge badge-neutral">$referentiel</span>
         </td>
         <td class="px-6 py-4 whitespace-nowrap">
             <span class="badge badge-soft badge-$status_color">$statut</span>

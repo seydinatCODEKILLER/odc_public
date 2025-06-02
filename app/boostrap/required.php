@@ -1,5 +1,6 @@
 <?php
 
+require_once ROOT_PATH_VENDOR . "/vendor/autoload.php";
 require_once ROOT_PATH . "/services/session.service.php";
 startSession();
 require_once ROOT_PATH . "/config/db.php";

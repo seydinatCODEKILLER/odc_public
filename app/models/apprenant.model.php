@@ -13,7 +13,7 @@ function getApprenantsByStatut(string $statut): array
     return fetchResult($sql, ['statut' => $statut]);
 }
 
-function getApprenantInfos(array $filters = [], int $page = 1, int $perPage = 3): array
+function getApprenantInfos(array $filters = [], int $page = 1, int $perPage = 4): array
 {
     $sql = "SELECT 
     a.id,
