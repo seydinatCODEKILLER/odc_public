@@ -200,6 +200,12 @@ function include_component($component, $data = [])
     include ROOT_PATH . "/views/components/{$component}.php";
 }
 
+function include_required($component, $data = [])
+{
+    extract($data);
+    include ROOT_PATH . "/includes/{$component}.php";
+}
+
 function validateDate(string $date, string $format = 'Y-m-d'): bool
 {
     $d = DateTime::createFromFormat($format, $date);

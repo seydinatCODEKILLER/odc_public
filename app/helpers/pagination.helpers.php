@@ -59,7 +59,6 @@ function paginateQuery(string $baseSql, array $params = [], int $currentPage = 1
     ];
 }
 
-
 /**
  * Génère un lien de pagination compatible avec le routing
  */
@@ -196,6 +195,9 @@ function renderPageLink(int $page, array $queryParams, bool $isActive): string
     );
 }
 
+/**
+ * Génère le HTML complet pour la pagination
+ */
 function renderPagination(array $pagination): string
 {
     // Récupère les paramètres GET actuels (sauf 'p' pour éviter les conflits)
