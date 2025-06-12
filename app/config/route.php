@@ -11,7 +11,7 @@ return [
     'admin/promotion/{id}/toggle-status' => 'promotionController@toggleStatus',
     'admin/referentiel' => 'referentielController@referentiel',
     'admin/apprenant' => 'apprenantController@apprenant',
-    'admin/apprenants/export' => 'apprenantController@export',
+    'admin/apprenant/{id}' => 'apprenantController@detailsApprenant',
 
     //Erreur routes
     '404' => 'errorController@not_founds',

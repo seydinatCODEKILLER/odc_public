@@ -194,7 +194,7 @@ function parsePostgresArray(string $pgArray): array
     return $items;
 }
 
-function include_component($component, $data = [])
+function include_component(string $component, array $data = [])
 {
     extract($data);
     include ROOT_PATH . "/views/components/{$component}.php";
@@ -218,4 +218,41 @@ function handleOperationResult(bool $success, string $targetStatus): void
     $message = $success ? "Promotion $action avec succès" : "Erreur lors de l'$action";
 
     $success ? setSuccess($message) : setFieldError('general', $message);
+}
+
+function calculateNumderDates($dateDebut, $dateFin)
+{
+
+    $datetimeDebut = new DateTime($dateDebut);
+    $datetimeFin = new DateTime($dateFin);
+
+    $interval = $datetimeDebut->diff($datetimeFin);
+
+    return $interval->days;
+}
+
+function displayJustifiedState($justified): string
+{
+    switch ($justified) {
+        case true:
+            return "badge badge-soft badge-success";
+            break;
+
+        default:
+            return "badge badge-soft badge-error";
+            break;
+    }
+}
+
+function displayJustifiedTexte($justified): string
+{
+    switch ($justified) {
+        case true:
+            return "Justifier";
+            break;
+
+        default:
+            return "Non justifier";
+            break;
+    }
 }

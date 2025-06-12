@@ -2,6 +2,9 @@
 require_once ROOT_PATH . "/models/apprenant.model.php";
 require_once ROOT_PATH . "/models/referentiel.model.php";
 require_once ROOT_PATH . "/views/components/table/apprenant.php";
+require_once ROOT_PATH . "/views/components/list/list.php";
+require_once ROOT_PATH . "/views/components/list/empty.php";
+require_once ROOT_PATH . "/views/components/card/card.php";
 require_once ROOT_PATH . "/services/apprenant.service.php";
 
 
@@ -28,7 +31,7 @@ function apprenant()
     ]);
 }
 
-function getApprenantStat()
+function getApprenantStat(): array
 {
     return [
         'retenus' => 10,
@@ -51,4 +54,28 @@ function handleExport(string $format)
             redirect_to('/admin/apprenant');
     }
     exit;
+}
+
+function detailsApprenant($id)
+{
+    isUserLoggedIn();
+    $absences = getInfoAbsenceByApprenant($id);
+    return render_view('admin/details', "base.layout", [
+        'title' => "Admin | Détails Apprenant",
+        'apprenant' => getApprenantById($id),
+        'stat' => getApprenantDetailStat($id),
+        'modules' => getModuleByApprenant($id),
+        'display_mode' => $_GET["d"] ?? "module",
+        'absences' => $absences["data"],
+        'pagination' => $absences["pagination"]
+    ]);
+}
+
+function getApprenantDetailStat($id): array
+{
+    return [
+        'retard' => getNombreRetardByApprenant($id),
+        'presence' => getNombrePresenceByApprenant($id),
+        'absence' => getNombreAbsenceByApprenant($id)
+    ];
 }

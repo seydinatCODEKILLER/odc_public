@@ -8,14 +8,15 @@ function display_stat_card($value, $label, $icon, $bg_color = 'error')
         'success' => 'bg-gradient-to-r from-green-500 to-teal-500',
         'warning' => 'bg-gradient-to-r from-yellow-500 to-orange-500',
         'info' => 'bg-gradient-to-r from-blue-500 to-cyan-500',
-        'primary' => 'bg-gradient-to-r from-purple-500 to-indigo-500'
+        'primary' => 'bg-gradient-to-r from-purple-500 to-indigo-500',
+        'white' => 'bg-gradient-to-r from-blue-500 to-white-500'
     ];
 
     $gradient = $gradients[$bg_color] ?? $gradients['error'];
 
     echo <<<HTML
     <div class="$gradient text-white rounded-lg shadow-lg flex items-center justify-between gap-4 p-6 
-                transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+                transition-all duration-300 transform hover:scale-105 hover:shadow-xl cursor-pointer">
         <div class="flex flex-col">
             <p class="font-bold text-4xl animate-pulse-on-hover">$value</p>
             <span class="text-md font-medium opacity-90">$label</span>
@@ -135,6 +136,82 @@ function display_list_row($promotion)
                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white rounded-box w-40 mt-1">
                     <li>
                         <a href="" class="text-gray-700 hover:bg-gray-100">
+                            <i class="ri-pencil-line text-gray-400"></i>action
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+    HTML;
+}
+
+function display_grid_module($module)
+{
+    $status_color = colorState($module["statut"]);
+    $jours = calculateNumderDates($module["date_debut"], $module["date_fin"]);
+    $status = colorState($module["statut"]);
+    $date_debut = format_date($module["date_debut"]);
+    $date_fin = format_date($module["date_fin"]);
+    $nom = htmlspecialchars($module["nom"]);
+    $description = htmlspecialchars($module["description"]);
+
+    echo <<<HTML
+    <div class="flex flex-col gap-2 p-3 rounded bg-white shadow-lg">
+        <div class="flex items-center justify-between">
+            <span class="badge badge-neutral font-medium text-xs"><i class="ri-time-line"></i> $jours jours</span>
+            <span class="px-3 py-1 rounded shadow-sm cursor-pointer"><i class="ri-equalizer-line"></i></span>
+        </div>
+        <div class="flex flex-col">
+            <p class="font font-medium text-lg">$nom</p>
+            <span class="text-gray-600 text-xs font-medium">$description</span>
+            <span class="badge badge-soft badge-$status_color mt-3">$status</span>
+        </div>
+        <div class="p-2 bg-gray-50 flex items-center justify-between mt-4">
+            <div class="flex items-center gap-2">
+                <div class="flex items-center text-orange-500 justify-center w-10 h-10 rounded-full bg-white shadow-sm"><i class="ri-timer-flash-line"></i></div>
+                <div class="flex flex-col text-xs font-medium">
+                    <span>Debut :</span>
+                    <span>$date_debut</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="flex items-center text-blue-500 justify-center w-10 h-10 rounded-full bg-white shadow-sm"><i class="ri-hourglass-fill"></i></div>
+                    <div class="flex flex-col text-xs font-medium">
+                        <span>Fin :</span>
+                        <span>$date_fin</span>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    HTML;
+}
+
+function display_list_absence($absences)
+{
+    $date_absence = format_date($absences['date_absence']);
+    $heure_absence = $absences["heure_absence"];
+    $is_justified = displayJustifiedTexte($absences["is_justified"]);
+    $is_justified_color = displayJustifiedState($absences["is_justified"]);
+    $module = htmlspecialchars($absences['module']);
+
+    echo <<<HTML
+    <tr class="hover:bg-gray-50">
+        <td class="px-6 py-4 whitespace-nowrap font-medium">$module</td>
+        <td class="px-6 py-4 whitespace-nowrap font-medium">$date_absence</td>
+        <td class="px-6 py-4 whitespace-nowrap">$heure_absence</td>
+        <td class="px-6 py-4 whitespace-nowrap">
+            <span class="$is_justified_color font-medium">$is_justified</span>
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap text-right">
+            <div class="dropdown dropdown-end">
+                <button type="button" tabindex="0" class="btn btn-ghost btn-sm">
+                    <i class="ri-more-2-fill text-gray-400 hover:text-gray-600"></i>
+                </button>
+                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-white rounded-box w-40 mt-1">
+                    <li>
+                        <a class="text-gray-700 hover:bg-gray-100">
                             <i class="ri-pencil-line text-gray-400"></i>action
                         </a>
                     </li>
