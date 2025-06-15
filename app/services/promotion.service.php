@@ -61,8 +61,8 @@ function addPromotionService(array $postData, array $fileData): array
     } catch (Exception $e) {
 
         // Supprimer l'image uploadée si la transaction échoue
-        if ($imagePath && file_exists(ROOT_PATH . $imagePath)) {
-            unlink(ROOT_PATH . $imagePath);
+        if ($imagePath && file_exists(ROOT_PATH_UPLOAD . $imagePath)) {
+            unlink(ROOT_PATH_UPLOAD . $imagePath);
         }
 
         return [

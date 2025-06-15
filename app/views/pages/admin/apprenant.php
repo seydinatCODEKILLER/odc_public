@@ -9,6 +9,15 @@
         </div>
         <div class="flex items-center gap-2">
             <?= include_required('apprenant/call_to_action'); ?>
+            <?=
+            include_component('modals/apprenant.modal', [
+                'referentiels' => $referentiels,
+                'errors' => $errors ?? [],
+                'oldValues' => $_POST,
+                'formAction' => 'admin/promotion',
+                'apprenantToEdit' => $apprenantToEdit ?? null
+            ]);
+            ?>
         </div>
     </div>
     <div class="bg-white shadow-sm rounded mt-6 grid grid-cols-1 md:grid-cols-2">
@@ -32,3 +41,5 @@
         </div>
     </div>
 </div>
+
+<script src="<?= ROOT_URL ?>assets/javascript/upload.js"></script>

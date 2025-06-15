@@ -1,5 +1,8 @@
 <?php
 require_once ROOT_PATH . "/models/apprenant.model.php";
+require_once ROOT_PATH . "/models/promotion.model.php";
+require_once ROOT_PATH . "/validations/apprenant.validation.php";
+
 
 
 function exportExcel()
@@ -198,5 +201,73 @@ function exportPdf()
         error_log('Export PDF Error: ' . $e->getMessage());
         setFieldError("general", "Erreur lors de la génération du fichier Excel");
         redirect_to('/admin/apprenant');
+    }
+}
+
+function addApprenantService(array $postData, array $fileData): array
+{
+    $promotion = getPromotionActive();
+    $matricule = generateMatricule();
+    // 1. Préparer les données
+    $apprenantData = [
+        'nom' => trim($postData['nom'] ?? ''),
+        'prenom' => trim($postData['prenom'] ?? ''),
+        'date_naissance' => $postData['date_naissance'] ?? '',
+        'lieu_naissance' => trim($postData['lieu_naissance'] ?? ''),
+        'adresse' => trim($postData['adresse'] ?? ''),
+        'email' => trim($postData['email'] ?? ''),
+        'telephone' => trim($postData['telephone'] ?? ''),
+        'promotion_id' => $promotion["id"] ?? null,
+        'referentiel_id' => $postData["referentiel_id"],
+        'matricule' => $matricule
+    ];
+
+    // 2. Valider les données
+    if (!validateApprenantData($apprenantData, $fileData)) {
+        return [
+            'success' => false,
+            'message' => 'Validation échouée',
+            'errors' => getFieldErrors()
+        ];
+    }
+
+    // 3. Uploader la photo
+    $photoPath = null;
+    if (!empty($fileData['photo']['name'])) {
+        try {
+            $photoPath = uploadImage($fileData['photo'], "apprenants", "_profile");
+            $apprenantData['photo'] = $photoPath;
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'errors' => ['photo' => $e->getMessage()]
+            ];
+        }
+    }
+
+    try {
+        // 4. Créer l'apprenant dans la base de données
+        $apprenantId = createApprenant($apprenantData);
+        if (!$apprenantId) {
+            throw new Exception("Erreur lors de la création de l'apprenant");
+        }
+
+        return [
+            'success' => true,
+            'message' => 'Apprenant créé avec succès',
+            'apprenantId' => $apprenantId
+        ];
+    } catch (Exception $e) {
+        // Nettoyage en cas d'erreur
+        if ($photoPath && file_exists(ROOT_PATH . $photoPath)) {
+            unlink(ROOT_PATH . $photoPath);
+        }
+
+        return [
+            'success' => false,
+            'message' => $e->getMessage(),
+            'errors' => ['general' => $e->getMessage()]
+        ];
     }
 }

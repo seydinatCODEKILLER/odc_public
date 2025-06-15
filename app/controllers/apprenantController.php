@@ -20,15 +20,22 @@ function apprenant()
         handleExport($_GET['format']);
         return;
     }
+
     $apprenants = getApprenantInfos($filtered, $_GET['p'] ?? 1);
-    return render_view('admin/apprenant', "base.layout", [
+    $viewData = [
         'title' => "Admin | Apprenant",
         'stats' => getApprenantStat(),
         'filtered' => $filtered,
         'referentiels' => getAllReferentiels(),
         'apprenants' => $apprenants["data"],
         'pagination' => $apprenants["pagination"],
-    ]);
+    ];
+
+    if (is_request_method('POST') && isset($_POST['add_apprenant'])) {
+        handleApprenantFormSubmition($viewData);
+    }
+
+    return render_view('admin/apprenant', "base.layout", $viewData);
 }
 
 function getApprenantStat(): array
@@ -78,4 +85,20 @@ function getApprenantDetailStat($id): array
         'presence' => getNombrePresenceByApprenant($id),
         'absence' => getNombreAbsenceByApprenant($id)
     ];
+}
+
+
+function handleApprenantFormSubmition(array $baseViewData)
+{
+    $result = addApprenantService($_POST, $_FILES);
+    if ($result['success']) {
+        setSuccess($result['message']);
+        return redirect_to('/admin/apprenant');
+    }
+    $viewData = array_merge($baseViewData, [
+        'errors' => $result['errors'] ?? [],
+        'oldValues' => $result['oldValues'] ?? $_POST,
+    ]);
+
+    return render_view('admin/apprenant', "base.layout", $viewData);
 }

@@ -130,3 +130,60 @@ function getInfoAbsenceByApprenant(int $id)
 
     return paginateQuery($sql, [$id]);
 }
+
+function isEmailExist(string $email): bool
+{
+    $sql = "SELECT id FROM apprenant WHERE email = ?";
+    $result = fetchResult($sql, [$email], false);
+    return $result !== false;
+}
+
+function isNumeroExist(string $telephone): bool
+{
+    $sql = "SELECT id FROM apprenant WHERE telephone = ?";
+    $result = fetchResult($sql, [$telephone], false);
+    return $result !== false;
+}
+
+function createApprenant(array $apprenantData): int|false
+{
+    $sql = "INSERT INTO apprenant 
+            (matricule, nom, prenom, date_naissance, lieu_naissance, 
+            adresse, email, telephone, photo, promotion_id, referentiel_id,statut) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? , 'active') 
+            RETURNING id";
+
+    $params = [
+        $apprenantData['matricule'],
+        $apprenantData['nom'],
+        $apprenantData['prenom'],
+        $apprenantData['date_naissance'],
+        $apprenantData['lieu_naissance'],
+        $apprenantData['adresse'],
+        $apprenantData['email'],
+        $apprenantData['telephone'],
+        $apprenantData['photo'] ?? null,
+        $apprenantData['promotion_id'],
+        $apprenantData['referentiel_id'],
+
+    ];
+
+    $result = executeQuery($sql, $params, true);
+
+    return is_numeric($result) ? (int)$result : false;
+}
+
+function generateMatricule(): string
+{
+    $prefix = "MAT" . date("Ym");
+    $sql = "SELECT MAX(CAST(SUBSTRING(matricule, 8) AS INTEGER)) as last_num 
+            FROM apprenant 
+            WHERE matricule LIKE ?";
+    $params = [$prefix . '%'];
+
+    $result = executeQuery($sql, $params);
+    $lastNum = $result['last_num'] ?? 0;
+    $nextNum = str_pad($lastNum + 1, 3, '0', STR_PAD_LEFT);
+
+    return $prefix . $nextNum;
+}

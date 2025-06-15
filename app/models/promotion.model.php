@@ -150,3 +150,9 @@ function getPromotionStatus(int $promotionId): ?string
 
     return $result['statut'] ?? null;
 }
+
+function getPromotionActive(): array|false
+{
+    $sql = "SELECT * FROM promotion WHERE statut = 'active'";
+    return fetchResult($sql, [], false);
+}

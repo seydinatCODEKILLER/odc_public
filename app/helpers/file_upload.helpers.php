@@ -15,7 +15,7 @@ function uploadImage(
     array $file,
     string $directory,
     string $prefix = 'file_',
-    int $maxSize = 2 * 1024 * 1024
+    int $maxSize = 7 * 1024 * 1024
 ): string {
     // 1. Validation du répertoire
     $baseDir = ROOT_PATH_UPLOAD . "/uploads/";

@@ -62,3 +62,5 @@
         </div>
     </div>
 </div>
+
+<script src="<?= ROOT_URL ?>assets/javascript/upload.js"></script>

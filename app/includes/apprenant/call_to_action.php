@@ -9,7 +9,7 @@
         <li><a href="/admin/apprenant/?format=excel&<?= http_build_query($_GET) ?>" class="text-green-500 font-medium text-md"><i class="ri-file-excel-2-line"></i> Format Excel</a></li>
     </ul>
 </div>
-<a class="btn btn-error text-white">
+<a onclick="addApprenantModal.showModal()" class="btn btn-error text-white">
     Nouvelle apprenant
     <i class="ri-add-line"></i>
 </a>
