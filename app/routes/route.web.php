@@ -18,7 +18,7 @@ function handle_request()
         // Recherche de correspondance avec les routes définies
         foreach ($routes as $route => $handler) {
             $pattern = create_route_pattern($route);
-            // dumpDie($pattern);
+            //dumpDie($pattern);
 
             if (preg_match($pattern, $url, $matches)) {
                 list($controller, $action) = explode('@', $handler);

@@ -176,14 +176,15 @@ function createApprenant(array $apprenantData): int|false
 function generateMatricule(): string
 {
     $prefix = "MAT" . date("Ym");
-    $sql = "SELECT MAX(CAST(SUBSTRING(matricule, 8) AS INTEGER)) as last_num 
-            FROM apprenant 
-            WHERE matricule LIKE ?";
-    $params = [$prefix . '%'];
+    $nextNum = rand(1, 1000);
+    // $sql = "SELECT MAX(CAST(SUBSTRING(matricule, 8) AS INTEGER)) as last_num 
+    //         FROM apprenant 
+    //         WHERE matricule LIKE ?";
+    // $params = [$prefix . '%'];
 
-    $result = executeQuery($sql, $params);
-    $lastNum = $result['last_num'] ?? 0;
-    $nextNum = str_pad($lastNum + 1, 3, '0', STR_PAD_LEFT);
+    // $result = executeQuery($sql, $params);
+    // $lastNum = $result['last_num'] ?? 0;
+    // $nextNum = str_pad($lastNum + 1, 3, '0', STR_PAD_LEFT);
 
     return $prefix . $nextNum;
 }

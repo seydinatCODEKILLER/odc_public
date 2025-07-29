@@ -1,22 +1,5 @@
 <?php
 
-function paginateResults(string $table, int $perPage = 5, int $currentPage = 1): array
-{
-    global $pdo;
-    $offset = ($currentPage - 1) * $perPage;
-    $stmt = $pdo->prepare("SELECT * FROM $table LIMIT :limit OFFSET :offset");
-    $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
-    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-    $stmt->execute();
-    $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $totalItems = $pdo->query("SELECT COUNT(*) FROM $table")->fetchColumn();
-    $totalPages = ceil($totalItems / $perPage);
-    return [
-        'items' => $items,
-        'total_pages' => $totalPages,
-        'current_page' => $currentPage
-    ];
-}
 
 function dumpDie(mixed $data)
 {

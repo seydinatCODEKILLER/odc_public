@@ -7,6 +7,5 @@ function getAllSessions()
             ORDER BY nom ASC";
 
     $result = fetchResult($sql);
-
     return $result ?: [];
 }

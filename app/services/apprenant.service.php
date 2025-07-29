@@ -4,7 +4,6 @@ require_once ROOT_PATH . "/models/promotion.model.php";
 require_once ROOT_PATH . "/validations/apprenant.validation.php";
 
 
-
 function exportExcel()
 {
     try {
